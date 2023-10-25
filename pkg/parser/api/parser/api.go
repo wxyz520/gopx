@@ -5,9 +5,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/zeromicro/go-zero/tools/goctl/pkg/parser/api/ast"
-	"github.com/zeromicro/go-zero/tools/goctl/pkg/parser/api/placeholder"
-	"github.com/zeromicro/go-zero/tools/goctl/pkg/parser/api/token"
+	"gopx/pkg/parser/api/ast"
+	"gopx/pkg/parser/api/placeholder"
+	"gopx/pkg/parser/api/token"
 )
 
 // API is the parsed api file.

@@ -13,10 +13,10 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
-	"github.com/zeromicro/go-zero/tools/goctl/api/parser"
-	"github.com/zeromicro/go-zero/tools/goctl/api/spec"
-	"github.com/zeromicro/go-zero/tools/goctl/rpc/execx"
-	"github.com/zeromicro/go-zero/tools/goctl/util/pathx"
+	"gopx/api/parser"
+	"gopx/api/spec"
+	"gopx/rpc/execx"
+	"gopx/util/pathx"
 )
 
 const pluginArg = "_plugin"

@@ -7,12 +7,12 @@ import (
 	"strings"
 
 	"github.com/zeromicro/go-zero/core/collection"
-	conf "github.com/zeromicro/go-zero/tools/goctl/config"
-	"github.com/zeromicro/go-zero/tools/goctl/rpc/parser"
-	"github.com/zeromicro/go-zero/tools/goctl/util"
-	"github.com/zeromicro/go-zero/tools/goctl/util/format"
-	"github.com/zeromicro/go-zero/tools/goctl/util/pathx"
-	"github.com/zeromicro/go-zero/tools/goctl/util/stringx"
+	conf "gopx/config"
+	"gopx/rpc/parser"
+	"gopx/util"
+	"gopx/util/format"
+	"gopx/util/pathx"
+	"gopx/util/stringx"
 )
 
 const functionTemplate = `

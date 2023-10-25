@@ -8,9 +8,9 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/zeromicro/go-zero/tools/goctl/model/sql/model"
-	"github.com/zeromicro/go-zero/tools/goctl/model/sql/util"
-	"github.com/zeromicro/go-zero/tools/goctl/util/pathx"
+	"gopx/model/sql/model"
+	"gopx/model/sql/util"
+	"gopx/util/pathx"
 )
 
 func TestParsePlainText(t *testing.T) {

@@ -12,14 +12,14 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/postgres"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
-	"github.com/zeromicro/go-zero/tools/goctl/config"
-	"github.com/zeromicro/go-zero/tools/goctl/model/sql/command/migrationnotes"
-	"github.com/zeromicro/go-zero/tools/goctl/model/sql/gen"
-	"github.com/zeromicro/go-zero/tools/goctl/model/sql/model"
-	"github.com/zeromicro/go-zero/tools/goctl/model/sql/util"
-	file "github.com/zeromicro/go-zero/tools/goctl/util"
-	"github.com/zeromicro/go-zero/tools/goctl/util/console"
-	"github.com/zeromicro/go-zero/tools/goctl/util/pathx"
+	"gopx/config"
+	"gopx/model/sql/command/migrationnotes"
+	"gopx/model/sql/gen"
+	"gopx/model/sql/model"
+	"gopx/model/sql/util"
+	file "gopx/util"
+	"gopx/util/console"
+	"gopx/util/pathx"
 )
 
 var (

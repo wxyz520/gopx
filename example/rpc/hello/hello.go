@@ -4,10 +4,10 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/zeromicro/go-zero/tools/goctl/example/rpc/hello/internal/config"
-	greetServer "github.com/zeromicro/go-zero/tools/goctl/example/rpc/hello/internal/server/greet"
-	"github.com/zeromicro/go-zero/tools/goctl/example/rpc/hello/internal/svc"
-	"github.com/zeromicro/go-zero/tools/goctl/example/rpc/hello/pb/hello"
+	"gopx/example/rpc/hello/internal/config"
+	greetServer "gopx/example/rpc/hello/internal/server/greet"
+	"gopx/example/rpc/hello/internal/svc"
+	"gopx/example/rpc/hello/pb/hello"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"

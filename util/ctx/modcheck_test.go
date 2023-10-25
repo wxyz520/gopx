@@ -8,8 +8,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/zeromicro/go-zero/core/stringx"
-	"github.com/zeromicro/go-zero/tools/goctl/rpc/execx"
-	"github.com/zeromicro/go-zero/tools/goctl/util/pathx"
+	"gopx/rpc/execx"
+	"gopx/util/pathx"
 )
 
 func TestIsGoMod(t *testing.T) {

@@ -3,8 +3,8 @@ package gen
 import (
 	"fmt"
 
-	"github.com/zeromicro/go-zero/tools/goctl/model/sql/template"
-	"github.com/zeromicro/go-zero/tools/goctl/util/pathx"
+	"gopx/model/sql/template"
+	"gopx/util/pathx"
 )
 
 const (

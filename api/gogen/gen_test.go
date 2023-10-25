@@ -9,10 +9,10 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/zeromicro/go-zero/tools/goctl/api/parser"
-	"github.com/zeromicro/go-zero/tools/goctl/pkg/env"
-	"github.com/zeromicro/go-zero/tools/goctl/rpc/execx"
-	"github.com/zeromicro/go-zero/tools/goctl/util/pathx"
+	"gopx/api/parser"
+	"gopx/pkg/env"
+	"gopx/rpc/execx"
+	"gopx/util/pathx"
 )
 
 var (

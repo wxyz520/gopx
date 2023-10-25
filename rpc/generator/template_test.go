@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/zeromicro/go-zero/tools/goctl/util/pathx"
+	"gopx/util/pathx"
 )
 
 func TestGenTemplates(t *testing.T) {

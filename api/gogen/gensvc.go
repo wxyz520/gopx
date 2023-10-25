@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/zeromicro/go-zero/tools/goctl/api/spec"
-	"github.com/zeromicro/go-zero/tools/goctl/config"
-	"github.com/zeromicro/go-zero/tools/goctl/util/format"
-	"github.com/zeromicro/go-zero/tools/goctl/util/pathx"
-	"github.com/zeromicro/go-zero/tools/goctl/vars"
+	"gopx/api/spec"
+	"gopx/config"
+	"gopx/util/format"
+	"gopx/util/pathx"
+	"gopx/vars"
 )
 
 const contextFilename = "service_context"

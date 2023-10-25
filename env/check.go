@@ -6,11 +6,11 @@ import (
 	"time"
 
 	"github.com/spf13/cobra"
-	"github.com/zeromicro/go-zero/tools/goctl/pkg/env"
-	"github.com/zeromicro/go-zero/tools/goctl/pkg/protoc"
-	"github.com/zeromicro/go-zero/tools/goctl/pkg/protocgengo"
-	"github.com/zeromicro/go-zero/tools/goctl/pkg/protocgengogrpc"
-	"github.com/zeromicro/go-zero/tools/goctl/util/console"
+	"gopx/pkg/env"
+	"gopx/pkg/protoc"
+	"gopx/pkg/protocgengo"
+	"gopx/pkg/protocgengogrpc"
+	"gopx/util/console"
 )
 
 type bin struct {

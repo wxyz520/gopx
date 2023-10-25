@@ -6,9 +6,9 @@ import (
 	"io"
 	"strings"
 
-	"github.com/zeromicro/go-zero/tools/goctl/api/spec"
-	"github.com/zeromicro/go-zero/tools/goctl/util"
-	"github.com/zeromicro/go-zero/tools/goctl/util/pathx"
+	"gopx/api/spec"
+	"gopx/util"
+	"gopx/util/pathx"
 )
 
 func writeProperty(writer io.Writer, member spec.Member, indent int) error {

@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/zeromicro/go-zero/tools/goctl/plugin"
+	"gopx/plugin"
 )
 
 func main() {

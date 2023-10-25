@@ -1,8 +1,8 @@
 package parser
 
 import (
-	"github.com/zeromicro/go-zero/tools/goctl/pkg/parser/api/ast"
-	"github.com/zeromicro/go-zero/tools/goctl/pkg/parser/api/placeholder"
+	"gopx/pkg/parser/api/ast"
+	"gopx/pkg/parser/api/placeholder"
 )
 
 type filterBuilder struct {

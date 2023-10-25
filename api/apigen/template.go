@@ -3,7 +3,7 @@ package apigen
 import (
 	"fmt"
 
-	"github.com/zeromicro/go-zero/tools/goctl/util/pathx"
+	"gopx/util/pathx"
 )
 
 const (

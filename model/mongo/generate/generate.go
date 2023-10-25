@@ -4,12 +4,12 @@ import (
 	"errors"
 	"path/filepath"
 
-	"github.com/zeromicro/go-zero/tools/goctl/config"
-	"github.com/zeromicro/go-zero/tools/goctl/model/mongo/template"
-	"github.com/zeromicro/go-zero/tools/goctl/util"
-	"github.com/zeromicro/go-zero/tools/goctl/util/format"
-	"github.com/zeromicro/go-zero/tools/goctl/util/pathx"
-	"github.com/zeromicro/go-zero/tools/goctl/util/stringx"
+	"gopx/config"
+	"gopx/model/mongo/template"
+	"gopx/util"
+	"gopx/util/format"
+	"gopx/util/pathx"
+	"gopx/util/stringx"
 )
 
 // Context defines the model generation data what they needs

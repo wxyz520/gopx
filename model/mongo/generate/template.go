@@ -3,8 +3,8 @@ package generate
 import (
 	"fmt"
 
-	"github.com/zeromicro/go-zero/tools/goctl/model/mongo/template"
-	"github.com/zeromicro/go-zero/tools/goctl/util/pathx"
+	"gopx/model/mongo/template"
+	"gopx/util/pathx"
 )
 
 const (

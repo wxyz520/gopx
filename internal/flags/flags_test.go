@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/zeromicro/go-zero/tools/goctl/test"
+	"gopx/test"
 )
 
 func TestFlags_Get(t *testing.T) {

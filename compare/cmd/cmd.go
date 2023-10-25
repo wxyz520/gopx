@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/zeromicro/go-zero/tools/goctl/compare/testdata"
-	"github.com/zeromicro/go-zero/tools/goctl/util/console"
+	"gopx/compare/testdata"
+	"gopx/util/console"
 )
 
 var rootCmd = &cobra.Command{

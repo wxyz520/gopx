@@ -7,7 +7,7 @@ import (
 
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/service"
-	"github.com/zeromicro/go-zero/tools/goctl/util/pathx"
+	"gopx/util/pathx"
 )
 
 const protoName = "greet.proto"

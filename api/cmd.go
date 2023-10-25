@@ -2,19 +2,19 @@ package api
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/zeromicro/go-zero/tools/goctl/api/apigen"
-	"github.com/zeromicro/go-zero/tools/goctl/api/dartgen"
-	"github.com/zeromicro/go-zero/tools/goctl/api/docgen"
-	"github.com/zeromicro/go-zero/tools/goctl/api/format"
-	"github.com/zeromicro/go-zero/tools/goctl/api/gogen"
-	"github.com/zeromicro/go-zero/tools/goctl/api/javagen"
-	"github.com/zeromicro/go-zero/tools/goctl/api/ktgen"
-	"github.com/zeromicro/go-zero/tools/goctl/api/new"
-	"github.com/zeromicro/go-zero/tools/goctl/api/tsgen"
-	"github.com/zeromicro/go-zero/tools/goctl/api/validate"
-	"github.com/zeromicro/go-zero/tools/goctl/config"
-	"github.com/zeromicro/go-zero/tools/goctl/internal/cobrax"
-	"github.com/zeromicro/go-zero/tools/goctl/plugin"
+	"gopx/api/apigen"
+	"gopx/api/dartgen"
+	"gopx/api/docgen"
+	"gopx/api/format"
+	"gopx/api/gogen"
+	"gopx/api/javagen"
+	"gopx/api/ktgen"
+	"gopx/api/new"
+	"gopx/api/tsgen"
+	"gopx/api/validate"
+	"gopx/config"
+	"gopx/internal/cobrax"
+	"gopx/plugin"
 )
 
 var (

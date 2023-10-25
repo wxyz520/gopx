@@ -16,9 +16,9 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/builder"
 	"github.com/zeromicro/go-zero/core/stringx"
-	"github.com/zeromicro/go-zero/tools/goctl/config"
-	"github.com/zeromicro/go-zero/tools/goctl/model/sql/parser"
-	"github.com/zeromicro/go-zero/tools/goctl/util/pathx"
+	"gopx/config"
+	"gopx/model/sql/parser"
+	"gopx/util/pathx"
 )
 
 //go:embed testdata/user.sql

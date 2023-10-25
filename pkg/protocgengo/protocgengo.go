@@ -4,10 +4,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/zeromicro/go-zero/tools/goctl/pkg/goctl"
-	"github.com/zeromicro/go-zero/tools/goctl/pkg/golang"
-	"github.com/zeromicro/go-zero/tools/goctl/rpc/execx"
-	"github.com/zeromicro/go-zero/tools/goctl/util/env"
+	"gopx/pkg/goctl"
+	"gopx/pkg/golang"
+	"gopx/rpc/execx"
+	"gopx/util/env"
 )
 
 const (

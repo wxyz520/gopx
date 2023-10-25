@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/zeromicro/go-zero/tools/goctl/util/pathx"
+	"gopx/util/pathx"
 )
 
 func Unpacking(name, destPath string, mapper func(f *zip.File) bool) error {
