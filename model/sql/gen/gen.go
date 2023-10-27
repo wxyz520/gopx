@@ -25,12 +25,12 @@ type (
 	defaultGenerator struct {
 		console.Console
 		// source string
-		dir           string
-		pkg           string
-		cfg           *config.Config
-		prefix        string
-		isPostgreSql  bool
-		ignoreColumns []string
+		dir, typ, name string
+		pkg            string
+		cfg            *config.Config
+		prefix         string
+		isPostgreSql   bool
+		ignoreColumns  []string
 	}
 
 	// Option defines a function with argument defaultGenerator
@@ -73,6 +73,32 @@ func NewDefaultGenerator(dir string, cfg *config.Config, opt ...Option) (*defaul
 	}
 
 	generator := &defaultGenerator{dir: dir, cfg: cfg, pkg: pkg}
+	var optionList []Option
+	optionList = append(optionList, newDefaultOption())
+	optionList = append(optionList, opt...)
+	for _, fn := range optionList {
+		fn(generator)
+	}
+
+	return generator, nil
+}
+func NewDefaultGeneratorDDL(dir, typ, name string, cfg *config.Config, opt ...Option) (*defaultGenerator, error) {
+	if dir == "" {
+		dir = pwd
+	}
+	dirAbs, err := filepath.Abs(dir)
+	if err != nil {
+		return nil, err
+	}
+
+	dir = dirAbs
+	pkg := util.SafeString(filepath.Base(dirAbs))
+	err = pathx.MkdirIfNotExist(dir)
+	if err != nil {
+		return nil, err
+	}
+
+	generator := &defaultGenerator{dir: dir, cfg: cfg, pkg: pkg, typ: typ, name: name}
 	var optionList []Option
 	optionList = append(optionList, newDefaultOption())
 	optionList = append(optionList, opt...)
@@ -137,7 +163,7 @@ func newDefaultOption() Option {
 }
 
 func (g *defaultGenerator) StartFromDDL(filename string, withCache, strict bool, database string) error {
-	modelList, err := g.genFromDDL(filename, withCache, strict, database)
+	modelList, err := g.genFromDDL(filename, withCache, strict, database, g.name, g.typ)
 	if err != nil {
 		return err
 	}
@@ -238,7 +264,7 @@ func (g *defaultGenerator) createFile(modelList map[string]*codeTuple) error {
 }
 
 // ret1: key-table name,value-code
-func (g *defaultGenerator) genFromDDL(filename string, withCache, strict bool, database string) (
+func (g *defaultGenerator) genFromDDL(filename string, withCache, strict bool, database, name, typ string) (
 	map[string]*codeTuple, error,
 ) {
 	m := make(map[string]*codeTuple)
@@ -248,6 +274,10 @@ func (g *defaultGenerator) genFromDDL(filename string, withCache, strict bool, d
 	}
 
 	for _, e := range tables {
+		//trim prefix
+		if len(typ) > 0 {
+			e.Name = stringx.From(typ)
+		}
 		code, err := g.genModel(*e, withCache)
 		if err != nil {
 			return nil, err
@@ -256,11 +286,18 @@ func (g *defaultGenerator) genFromDDL(filename string, withCache, strict bool, d
 		if err != nil {
 			return nil, err
 		}
-
-		m[e.Name.Source()] = &codeTuple{
-			modelCode:       code,
-			modelCustomCode: customCode,
+		if len(name) > 0 {
+			m[name] = &codeTuple{
+				modelCode:       code,
+				modelCustomCode: customCode,
+			}
+		} else {
+			m[e.Name.Source()] = &codeTuple{
+				modelCode:       code,
+				modelCustomCode: customCode,
+			}
 		}
+
 	}
 
 	return m, nil
@@ -344,6 +381,100 @@ func (g *defaultGenerator) genModel(in parser.Table, withCache bool) (string, er
 	}
 
 	newCode, err := genNewPrefix(table, withCache, g.isPostgreSql, g.prefix)
+	if err != nil {
+		return "", err
+	}
+	//newCode, err := genNew(table, withCache, g.isPostgreSql)
+	//if err != nil {
+	//	return "", err
+	//}
+
+	tableName, err := genTableName(table)
+	if err != nil {
+		return "", err
+	}
+
+	code := &code{
+		importsCode: importsCode,
+		varsCode:    varsCode,
+		typesCode:   typesCode,
+		newCode:     newCode,
+		insertCode:  insertCode,
+		findCode:    findCode,
+		updateCode:  updateCode,
+		deleteCode:  deleteCode,
+		cacheExtra:  ret.cacheExtra,
+		tableName:   tableName,
+	}
+
+	output, err := g.executeModel(table, code)
+	if err != nil {
+		return "", err
+	}
+
+	return output.String(), nil
+}
+
+func (g *defaultGenerator) genModelTyp(in parser.Table, withCache bool) (string, error) {
+	if len(in.PrimaryKey.Name.Source()) == 0 {
+		return "", fmt.Errorf("table %s: missing primary key", in.Name.Source())
+	}
+
+	primaryKey, uniqueKey := genCacheKeys(in)
+
+	var table Table
+	table.Table = in
+	table.PrimaryCacheKey = primaryKey
+	table.UniqueCacheKey = uniqueKey
+	table.ContainsUniqueCacheKey = len(uniqueKey) > 0
+	table.ignoreColumns = g.ignoreColumns
+
+	importsCode, err := genImports(table, withCache, in.ContainsTime())
+	if err != nil {
+		return "", err
+	}
+
+	varsCode, err := genVars(table, withCache, g.isPostgreSql)
+	if err != nil {
+		return "", err
+	}
+
+	insertCode, insertCodeMethod, err := genInsert(table, withCache, g.isPostgreSql)
+	if err != nil {
+		return "", err
+	}
+
+	findCode := make([]string, 0)
+	findOneCode, findOneCodeMethod, err := genFindOne(table, withCache, g.isPostgreSql)
+	if err != nil {
+		return "", err
+	}
+
+	ret, err := genFindOneByField(table, withCache, g.isPostgreSql)
+	if err != nil {
+		return "", err
+	}
+
+	findCode = append(findCode, findOneCode, ret.findOneMethod)
+	updateCode, updateCodeMethod, err := genUpdate(table, withCache, g.isPostgreSql)
+	if err != nil {
+		return "", err
+	}
+
+	deleteCode, deleteCodeMethod, err := genDelete(table, withCache, g.isPostgreSql)
+	if err != nil {
+		return "", err
+	}
+
+	var list []string
+	list = append(list, insertCodeMethod, findOneCodeMethod, ret.findOneInterfaceMethod,
+		updateCodeMethod, deleteCodeMethod)
+	typesCode, err := genTypes(table, strings.Join(modelutil.TrimStringSlice(list), pathx.NL), withCache)
+	if err != nil {
+		return "", err
+	}
+
+	newCode, err := genNewTyp(table, withCache, g.isPostgreSql, g.typ)
 	if err != nil {
 		return "", err
 	}

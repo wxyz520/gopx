@@ -2,6 +2,8 @@ package command
 
 import (
 	"errors"
+	"fmt"
+	"gopx/pkg/env"
 	"path/filepath"
 	"strings"
 
@@ -55,6 +57,10 @@ var (
 	VarStringSliceIgnoreColumns []string
 	// VarStringPrefix describes the prefix of table.
 	VarStringPrefix string
+	// VarStringTyp describes the file name of table.
+	VarStringTyp string
+	// VarStringName describes the struct name of table.
+	VarStringName string
 )
 
 var errNotMatched = errors.New("sql not matched")
@@ -93,6 +99,8 @@ func MysqlDDL(_ *cobra.Command, _ []string) error {
 		idea:          idea,
 		database:      database,
 		strict:        VarBoolStrict,
+		typ:           VarStringTyp,
+		name:          VarStringName,
 		ignoreColumns: mergeColumns(VarStringSliceIgnoreColumns),
 	}
 	return fromDDL(arg)
@@ -102,6 +110,10 @@ func MysqlDDL(_ *cobra.Command, _ []string) error {
 func MySqlDataSource(_ *cobra.Command, _ []string) error {
 	migrationnotes.BeforeCommands(VarStringDir, VarStringStyle)
 	url := strings.TrimSpace(VarStringURL)
+	if len(url) == 0 || url == "" {
+		//reedit url
+		url = fmt.Sprintf("%v/%v", env.Get("DB_URL"), env.Get("DB"))
+	}
 	dir := strings.TrimSpace(VarStringDir)
 	cache := VarBoolCache
 	idea := VarBoolIdea
@@ -226,12 +238,12 @@ func PostgreSqlDataSource(_ *cobra.Command, _ []string) error {
 }
 
 type ddlArg struct {
-	src, dir      string
-	cfg           *config.Config
-	cache, idea   bool
-	database      string
-	strict        bool
-	ignoreColumns []string
+	src, dir, typ, name string
+	cfg                 *config.Config
+	cache, idea         bool
+	database            string
+	strict              bool
+	ignoreColumns       []string
 }
 
 func fromDDL(arg ddlArg) error {
@@ -250,7 +262,7 @@ func fromDDL(arg ddlArg) error {
 		return errNotMatched
 	}
 
-	generator, err := gen.NewDefaultGenerator(arg.dir, arg.cfg,
+	generator, err := gen.NewDefaultGeneratorDDL(arg.dir, arg.typ, arg.name, arg.cfg,
 		gen.WithConsoleOption(log), gen.WithIgnoreColumns(arg.ignoreColumns))
 	if err != nil {
 		return err

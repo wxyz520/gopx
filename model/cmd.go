@@ -34,7 +34,8 @@ func init() {
 	ddlCmdFlags.StringVar(&command.VarStringHome, "home")
 	ddlCmdFlags.StringVar(&command.VarStringRemote, "remote")
 	ddlCmdFlags.StringVar(&command.VarStringBranch, "branch")
-	ddlCmdFlags.StringVar(&command.VarStringPrefix, "prefix")
+	ddlCmdFlags.StringVar(&command.VarStringTyp, "typ")
+	ddlCmdFlags.StringVar(&command.VarStringName, "name")
 
 	datasourceCmdFlags.StringVar(&command.VarStringURL, "url")
 	datasourceCmdFlags.StringSliceVarP(&command.VarStringSliceTable, "table", "t")

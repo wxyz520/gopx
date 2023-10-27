@@ -20,6 +20,8 @@ import (
 var goctlEnv *sortedmap.SortedMap
 
 const (
+	DBUrl                  = "DB_URL"
+	DB                     = "DB"
 	GoctlOS                = "GOCTL_OS"
 	GoctlArch              = "GOCTL_ARCH"
 	GoctlHome              = "GOCTL_HOME"
@@ -45,6 +47,8 @@ func init() {
 	}
 	goctlEnv = sortedmap.New()
 	goctlEnv.SetKV(GoctlOS, runtime.GOOS)
+	goctlEnv.SetKV(DBUrl, "")
+	goctlEnv.SetKV(DB, "")
 	goctlEnv.SetKV(GoctlArch, runtime.GOARCH)
 	existsEnv := readEnv(defaultGoctlHome)
 	if existsEnv != nil {
@@ -129,6 +133,7 @@ func UseExperimental() bool {
 }
 
 func readEnv(goctlHome string) *sortedmap.SortedMap {
+	fmt.Println("wrote")
 	envFile := filepath.Join(goctlHome, envFileDir)
 	data, err := os.ReadFile(envFile)
 	if err != nil {
@@ -143,7 +148,7 @@ func readEnv(goctlHome string) *sortedmap.SortedMap {
 			continue
 		}
 	}
-	return sm
+	return goctlEnv
 }
 
 func WriteEnv(kv []string) error {

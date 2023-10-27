@@ -64,3 +64,34 @@ func genNewPrefix(table Table, withCache, postgreSql bool, prefix string) (strin
 
 	return output.String(), nil
 }
+
+func genNewTyp(table Table, withCache, postgreSql bool, typ string) (string, error) {
+	text, err := pathx.LoadTemplate(category, modelNewTemplateFile, template.New)
+	if err != nil {
+		return "", err
+	}
+
+	t := fmt.Sprintf(`"%s"`, wrapWithRawString(table.Name.Source(), postgreSql))
+	if postgreSql {
+		t = "`" + fmt.Sprintf(`"%s"."%s"`, table.Db.Source(), table.Name.Source()) + "`"
+	}
+
+	camel := table.Name.ToCamel()
+	if typ != "" {
+		camel = typ
+	}
+
+	output, err := util.With("new").
+		Parse(text).
+		Execute(map[string]any{
+			"table":                 t,
+			"withCache":             withCache,
+			"upperStartCamelObject": camel,
+			"data":                  table,
+		})
+	if err != nil {
+		return "", err
+	}
+
+	return output.String(), nil
+}
